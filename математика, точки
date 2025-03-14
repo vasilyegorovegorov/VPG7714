@@ -1,0 +1,32 @@
+cx, cy, dr, d1, d2 = map(int, input().split())
+
+length = max(dr * 2, d1, d2)
+min_p = (cx - length / 2, cy - length / 2)
+max_p = (cx + length / 2, cy + length / 2)
+
+scale = 1e-2
+
+
+def is_in(p):
+    local_p = (p[0] - cx, p[1] - cy)
+    if local_p[0] ** 2 + local_p[1] ** 2 > dr ** 2:
+        return False
+
+    if abs(local_p[0]) + abs(local_p[1]) <= d2 / 2:
+        return False
+
+    if abs(local_p[0]) + abs(local_p[1]) > d1 / 2:
+        return False
+
+    return True
+
+
+S = 0
+# print(int(min_p[0] / scale) - 1, int(max_p[0] / scale) + 1)
+# print(int(min_p[1] / scale) - 1, int(max_p[1] / scale) + 1)
+for x in range(int(min_p[0] / scale) - 1, int(max_p[0] / scale) + 1):
+    for y in range(int(min_p[1] / scale) - 1, int(max_p[1] / scale) + 1):
+        # print((x * scale, y * scale))
+        if is_in((x * scale, y * scale)):
+            S += scale ** 2
+print(S)
